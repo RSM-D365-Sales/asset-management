@@ -5,6 +5,7 @@ import {
   Activity,
   ChevronRight,
   ClipboardCheck,
+  ExternalLink,
   FileText,
   Gauge as GaugeIcon,
   ListTree,
@@ -21,6 +22,7 @@ import { fmtDate, fmtDateTime, fmtNum, priorityTone, relativeDue, woStatusTone }
 import type { RoutineCategory } from '../data/types'
 import ComponentLogPanel from '../components/ComponentLogPanel'
 import DeficiencyForm from '../components/DeficiencyForm'
+import { assetDocsUrl } from '../lib/sharepoint'
 
 type Tab = 'routines' | 'tree' | 'log' | 'deficiencies'
 
@@ -132,10 +134,21 @@ export default function AssetDetail() {
           { icon: ClipboardCheck, label: 'Checklists', action: () => setTab('routines') },
           { icon: GaugeIcon, label: 'Record Hours', action: () => setTab('log') },
           { icon: ListTree, label: 'Equipment Tree', action: () => setTab('tree') },
-          { icon: FileText, label: 'Documentation', action: () => {} },
+          { icon: FileText, label: 'Documentation', href: assetDocsUrl(asset.name) },
           { icon: Package, label: 'Part Requests', action: () => {} },
-        ].map(({ icon: Icon, label, to, action }) =>
-          to ? (
+        ].map(({ icon: Icon, label, to, action, href }) =>
+          href ? (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-outline bg-white"
+            >
+              <Icon className="h-4 w-4 text-harbor-600" /> {label}
+              <ExternalLink className="h-3 w-3 text-slate-400" />
+            </a>
+          ) : to ? (
             <Link key={label} to={to} className="btn-outline bg-white">
               <Icon className="h-4 w-4 text-harbor-600" /> {label}
             </Link>
