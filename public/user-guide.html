@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HarborMaster — User Guide</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy-900: #0b1f3a; --navy-700: #162f5e; --navy-500: #264f96;
+      --harbor-500: #14b8a6; --harbor-600: #0d9488;
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0;
+      --slate-400: #94a3b8; --slate-500: #64748b; --slate-700: #334155;
+      --amber: #f59e0b; --red: #dc2626; --green: #16a34a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: 'Inter', system-ui, 'Segoe UI', sans-serif;
+      background: var(--slate-100); color: #0f172a; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header.hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+      color: #fff; padding: 48px 24px 40px;
+    }
+    .hero-inner, main { max-width: 860px; margin: 0 auto; }
+    .hero-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .hero-brand .badge {
+      width: 38px; height: 38px; border-radius: 10px; background: rgba(20,184,166,.2);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      box-shadow: inset 0 0 0 1px rgba(52,208,196,.35);
+    }
+    .hero-brand .name { font-weight: 800; font-size: 18px; line-height: 1; }
+    .hero-brand .sub { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #34d0c4; font-weight: 600; }
+    h1 { font-size: 32px; font-weight: 800; margin: 0 0 8px; letter-spacing: -.02em; }
+    .hero p { margin: 0; color: #cbd5e1; max-width: 560px; }
+    main { padding: 32px 24px 64px; }
+    .toc {
+      background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 28px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05); border: 1px solid var(--slate-200);
+    }
+    .toc strong { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 8px; }
+    .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+    .toc a { color: var(--harbor-600); text-decoration: none; font-weight: 600; font-size: 14px; }
+    .toc a:hover { text-decoration: underline; }
+    section {
+      background: #fff; border-radius: 14px; padding: 26px 28px; margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05); border: 1px solid var(--slate-200);
+    }
+    h2 { font-size: 21px; font-weight: 800; color: var(--navy-900); margin: 0 0 4px; letter-spacing: -.01em; }
+    h2 .num { color: var(--harbor-500); margin-right: 8px; }
+    h3 { font-size: 15px; font-weight: 700; color: var(--navy-700); margin: 20px 0 6px; }
+    p, li { font-size: 14.5px; color: var(--slate-700); }
+    section > p.lead { color: var(--slate-500); margin-top: 0; }
+    ol.steps { padding-left: 22px; }
+    ol.steps li { margin-bottom: 6px; }
+    code, .kbd {
+      background: var(--slate-100); border: 1px solid var(--slate-200); border-radius: 6px;
+      padding: 1px 6px; font-size: 13px; font-family: ui-monospace, Consolas, monospace;
+    }
+    .chip { display: inline-block; border-radius: 999px; padding: 1px 10px; font-size: 12px; font-weight: 700; }
+    .chip.h   { background: var(--slate-100); color: var(--slate-500); }
+    .chip.dd  { background: var(--amber); color: #fff; }
+    .chip.rdd { background: var(--red); color: #fff; }
+    .chip.oos { background: var(--slate-700); color: #fff; }
+    .chip.ok  { background: #dcfce7; color: var(--green); }
+    .chip.warn{ background: #fef3c7; color: #b45309; }
+    .chip.fail{ background: #fee2e2; color: var(--red); }
+    .tip {
+      border-left: 4px solid var(--harbor-500); background: #f0fdfa;
+      padding: 10px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; font-size: 14px;
+    }
+    .tip strong { color: var(--harbor-600); }
+    footer { text-align: center; color: var(--slate-400); font-size: 12.5px; padding-bottom: 40px; }
+    a.applink { color: var(--harbor-600); font-weight: 600; }
+    @media (max-width: 640px) { .toc ol { columns: 1; } }
+    @media print { header.hero { -webkit-print-color-adjust: exact; } section { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-brand">
+        <div class="badge">⚓</div>
+        <div>
+          <div class="name">HarborMaster</div>
+          <div class="sub">Marine EAM · User Guide</div>
+        </div>
+      </div>
+      <h1>How to use HarborMaster</h1>
+      <p>An offline-first asset &amp; maintenance workspace for marine fleets, backed by Dynamics 365 F&amp;SCM Enterprise Asset Management. This guide walks through every screen — including how to build your own report live.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="toc">
+      <strong>In this guide</strong>
+      <ol>
+        <li><a href="#start">Getting started</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#assets">Assets &amp; logging hours</a></li>
+        <li><a href="#workorders">Work orders &amp; checklists</a></li>
+        <li><a href="#requests">Work requests (deficiencies)</a></li>
+        <li><a href="#insights">Insight Tables</a></li>
+        <li><a href="#drydock">Drydock Schedule</a></li>
+        <li><a href="#analytics">Analytics — build a report</a></li>
+        <li><a href="#offline">Working offline</a></li>
+      </ol>
+    </div>
+
+    <section id="start">
+      <h2><span class="num">1.</span>Getting started</h2>
+      <p class="lead">Open <a class="applink" href="./">the application</a> in any modern browser — there is nothing to install.</p>
+      <ul>
+        <li>The app ships with a fully seeded fleet: <strong>8 tugs</strong>, a year of completed maintenance history, engine hour logs, open work, and a forward drydock plan.</li>
+        <li>Everything is stored locally in your browser first and synchronized to D365 when connected — so it keeps working at sea. See <a href="#offline">Working offline</a>.</li>
+        <li>The sidebar on the left is the main navigation; the search bar at the top finds assets by name, location, or class.</li>
+      </ul>
+    </section>
+
+    <section id="dashboard">
+      <h2><span class="num">2.</span>Dashboard</h2>
+      <p class="lead">Your day at a glance: tasks assigned to you, fleet status, and pinned announcements.</p>
+      <ul>
+        <li>Work orders due today appear at the top — click one to jump straight into its checklist.</li>
+        <li>Pinned announcements (e.g. updated lockout/tagout procedures) stay visible until acknowledged.</li>
+      </ul>
+    </section>
+
+    <section id="assets">
+      <h2><span class="num">3.</span>Assets &amp; logging hours</h2>
+      <p class="lead"><strong>Assets</strong> lists every tug, dock, and barge with live tank gauges and open-work counts. Click a vessel to open its detail page.</p>
+      <h3>On the asset detail page</h3>
+      <ul>
+        <li><strong>Equipment tree</strong> — functional locations down to components (main engines, generators, winch…).</li>
+        <li><strong>Component hour log</strong> — record an hour-meter reading; readings drive the preventive-maintenance triggers and the projection charts in Insight Tables.</li>
+        <li><strong>Gauges</strong> — potable water, fuel, oil, and grey water with warning thresholds.</li>
+      </ul>
+      <div class="tip"><strong>Try it:</strong> log new engine hours on Apollo, then open the usage-projection insight table — the projected service due dates shift in real time, because the system learns the boat's actual operating tempo.</div>
+    </section>
+
+    <section id="workorders">
+      <h2><span class="num">4.</span>Work orders &amp; checklists</h2>
+      <p class="lead">Preventive routines and corrective jobs, executed as low-click checklists.</p>
+      <ol class="steps">
+        <li>Open <strong>Work Orders</strong> and pick a job (filter by status or search).</li>
+        <li>Work through the steps: yes/no items get <span class="chip ok">Pass</span> <span class="chip fail">Fail</span> <span class="chip warn">Flag</span>; gauge steps capture a reading on a slider.</li>
+        <li>Need the procedure? The <strong>PDF job aid</strong> link is on every work order — no per-step sign-off required.</li>
+        <li>Add labor time and cost category before completing, so the hours land in reporting.</li>
+      </ol>
+      <p>Failing or flagging a step can spin up a deficiency without leaving the checklist.</p>
+    </section>
+
+    <section id="requests">
+      <h2><span class="num">5.</span>Work requests (deficiencies)</h2>
+      <p class="lead">Anything found broken on rounds gets logged here, triaged, and tracked to resolution.</p>
+      <ul>
+        <li>Click <strong>New Request</strong>, pick the asset/component, set priority, and describe the finding.</li>
+        <li>Each request keeps a full <strong>timeline</strong> — logged, triaged, parts ordered, resolved.</li>
+      </ul>
+    </section>
+
+    <section id="insights">
+      <h2><span class="num">6.</span>Insight Tables</h2>
+      <p class="lead">Saved cross-fleet summary reports built from everything the crews capture. Open one from the list — every table supports <strong>Export Table</strong> (CSV).</p>
+      <ul>
+        <li><strong>Engineering: Caterpillar / EMD Summary</strong> — every engine of that manufacturer fleet-wide: current hours, last completion, and when each service comes due. Overdue items show in red.</li>
+        <li><strong>Engine Usage &amp; PM Projection</strong> — charts each engine's logged hours, fits the observed usage rate, and marks the date the trend crosses each service threshold.</li>
+        <li><strong>Engine Hours Log</strong> — every meter reading, newest first.</li>
+        <li><strong>PM Status / Open Deficiencies</strong> — work-order and deficiency rollups by category and vessel.</li>
+      </ul>
+    </section>
+
+    <section id="drydock">
+      <h2><span class="num">7.</span>Drydock Schedule</h2>
+      <p class="lead">A half-month planning board for tentatively scheduling yard periods across the fleet, a year ahead.</p>
+      <ol class="steps">
+        <li>Each row is a tug; each column is half a month (1–15 / 16–31).</li>
+        <li><strong>Click any cell</strong> to cycle the plan: <span class="chip h">H</span> in service → <span class="chip dd">DD</span> planned drydock → <span class="chip rdd">RDD</span> regulatory drydock → <span class="chip oos">OOS</span> out of service → back to <span class="chip h">H</span>.</li>
+        <li>Watch the left columns: COI expiration and <strong>DD Expire</strong> turn amber, then red, as deadlines approach — and the period containing a drydock deadline gets a red ring on the grid.</li>
+        <li>The right-hand column totals each boat's in-service months.</li>
+      </ol>
+      <div class="tip"><strong>Planning tip:</strong> pair yard windows with upcoming engine services from the Insight Tables — one haul-out, both jobs.</div>
+    </section>
+
+    <section id="analytics">
+      <h2><span class="num">8.</span>Analytics — build a report in front of your audience</h2>
+      <p class="lead">An ad-hoc, drag-and-drop report canvas. Think Power BI field wells, computed live from the local data.</p>
+      <h3>Build your first report</h3>
+      <ol class="steps">
+        <li>Open <strong>Analytics</strong>. The palette at the top offers five widgets: <strong>KPI Card</strong>, <strong>Bar Chart</strong>, <strong>Trend Line</strong>, <strong>Donut</strong>, and <strong>Table</strong>.</li>
+        <li><strong>Drag a widget onto the canvas</strong> — or simply click it. It lands already showing real data.</li>
+        <li>Shape it with the dropdowns on the widget:
+          <ul>
+            <li><strong>Dataset</strong> — Work Orders, Labor &amp; Cost, Deficiencies, Hour Readings, Drydock Plan, or Fleet.</li>
+            <li><strong>Measure</strong> — count, labor hours, estimated hours, fleet running hours…</li>
+            <li><strong>Group by</strong> — asset, category, worker, priority, builder…</li>
+            <li><strong>Filter</strong> — open only, completed only, corrective only, contract labor…</li>
+          </ul>
+        </li>
+        <li>Rename the title by typing over it, resize with the expand icon, reorder by dragging the grip handle, remove with <strong>×</strong>.</li>
+      </ol>
+      <h3>Example: "Which boats eat the most labor?"</h3>
+      <ol class="steps">
+        <li>Add a <strong>Bar Chart</strong>.</li>
+        <li>Dataset → <em>Labor &amp; Cost</em>, Measure → <em>Labor hours</em>, Group by → <em>Asset</em>.</li>
+        <li>Add a <strong>Trend Line</strong>, switch its filter to <em>Corrective only</em> — is unplanned work trending up?</li>
+      </ol>
+      <p>Your canvas is saved automatically and will be exactly as you left it next time you open the app.</p>
+    </section>
+
+    <section id="offline">
+      <h2><span class="num">9.</span>Working offline</h2>
+      <p class="lead">Crews work at sea; HarborMaster assumes the connection will drop.</p>
+      <ul>
+        <li>Every edit — checklist results, hour logs, deficiencies, drydock plans — is saved locally first and queued for synchronization.</li>
+        <li>The <strong>Online / Offline pill</strong> in the top-right shows connection state and the count of queued changes; everything replays to D365 automatically when the connection returns.</li>
+        <li>To see it in action, click the pill to simulate going offline, make some edits, then click it again — watch the queue drain.</li>
+        <li>After your first visit the app is fully cached, so it even loads with no connection at all.</li>
+      </ul>
+    </section>
+
+    <footer>
+      HarborMaster — Marine EAM demo · Backend: Dynamics 365 F&amp;SCM Enterprise Asset Management<br />
+      <a class="applink" href="./">Open the application</a>
+    </footer>
+  </main>
+</body>
+</html>
