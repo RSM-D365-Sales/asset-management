@@ -1,0 +1,21 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# verification artifacts
+verify-*.png
+
+# build caches
+dev-dist
+*.tsbuildinfo
+
+# discovery reference material — keep out of the public repo
+Screenshots/
