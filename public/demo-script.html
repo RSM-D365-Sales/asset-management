@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HarborMaster — Demo Story &amp; Script</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy-900: #0b1f3a; --navy-700: #162f5e; --navy-500: #264f96;
+      --harbor-500: #14b8a6; --harbor-600: #0d9488;
+      --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0;
+      --slate-400: #94a3b8; --slate-500: #64748b; --slate-700: #334155;
+      --amber: #f59e0b; --red: #dc2626; --green: #16a34a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: 'Inter', system-ui, 'Segoe UI', sans-serif;
+      background: var(--slate-100); color: #0f172a; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header.hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+      color: #fff; padding: 48px 24px 40px;
+    }
+    .hero-inner, main { max-width: 920px; margin: 0 auto; }
+    .hero-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .hero-brand .badge {
+      width: 38px; height: 38px; border-radius: 10px; background: rgba(20,184,166,.2);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      box-shadow: inset 0 0 0 1px rgba(52,208,196,.35);
+    }
+    .hero-brand .name { font-weight: 800; font-size: 18px; line-height: 1; }
+    .hero-brand .sub { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #34d0c4; font-weight: 600; }
+    h1 { font-size: 32px; font-weight: 800; margin: 0 0 8px; letter-spacing: -.02em; }
+    .hero p { margin: 0; color: #cbd5e1; max-width: 620px; }
+    main { padding: 32px 24px 64px; }
+    section {
+      background: #fff; border-radius: 14px; padding: 26px 28px; margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05); border: 1px solid var(--slate-200);
+    }
+    h2 { font-size: 21px; font-weight: 800; color: var(--navy-900); margin: 0 0 4px; letter-spacing: -.01em; }
+    h2 .num { color: var(--harbor-500); margin-right: 8px; }
+    h2 .time { float: right; font-size: 12px; font-weight: 700; color: var(--slate-400); background: var(--slate-100); border-radius: 999px; padding: 3px 12px; margin-top: 3px; }
+    h3 { font-size: 15px; font-weight: 700; color: var(--navy-700); margin: 20px 0 6px; }
+    p, li { font-size: 14.5px; color: var(--slate-700); }
+    section > p.lead { color: var(--slate-500); margin-top: 0; }
+    .tip {
+      border-left: 4px solid var(--harbor-500); background: #f0fdfa;
+      padding: 10px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; font-size: 14px;
+    }
+    .tip strong { color: var(--harbor-600); }
+    .wow {
+      border-left: 4px solid var(--amber); background: #fffbeb;
+      padding: 10px 16px; border-radius: 0 10px 10px 0; margin: 14px 0; font-size: 14px;
+    }
+    .wow strong { color: #b45309; }
+    table.script { width: 100%; border-collapse: collapse; margin: 12px 0 4px; }
+    table.script th {
+      text-align: left; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--slate-400); padding: 6px 10px; border-bottom: 2px solid var(--slate-200);
+    }
+    table.script td { padding: 9px 10px; border-bottom: 1px solid var(--slate-100); vertical-align: top; font-size: 14px; }
+    table.script td.do { width: 44%; color: var(--navy-700); font-weight: 600; }
+    table.script td.say { color: var(--slate-700); }
+    table.script td.say em { color: var(--slate-500); }
+    .cast { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 8px; }
+    .cast .card {
+      background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 14px 16px;
+    }
+    .cast .card b { color: var(--navy-900); display: block; }
+    .cast .card span { font-size: 12.5px; color: var(--slate-500); }
+    ul.check { list-style: none; padding-left: 4px; }
+    ul.check li { padding-left: 26px; position: relative; margin-bottom: 5px; }
+    ul.check li::before { content: '☐'; position: absolute; left: 0; color: var(--harbor-600); font-size: 16px; }
+    code { background: var(--slate-100); border: 1px solid var(--slate-200); border-radius: 6px; padding: 1px 6px; font-size: 13px; font-family: ui-monospace, Consolas, monospace; }
+    footer { text-align: center; color: var(--slate-400); font-size: 12.5px; padding-bottom: 40px; }
+    a.applink { color: var(--harbor-600); font-weight: 600; }
+    details.qa { border: 1px solid var(--slate-200); border-radius: 10px; padding: 10px 16px; margin-bottom: 8px; background: var(--slate-50); }
+    details.qa summary { font-weight: 700; color: var(--navy-700); cursor: pointer; font-size: 14px; }
+    details.qa p { margin: 8px 0 2px; }
+    @media print { header.hero { -webkit-print-color-adjust: exact; } section { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-brand">
+        <div class="badge">⚓</div>
+        <div>
+          <div class="name">HarborMaster</div>
+          <div class="sub">Marine EAM · Demo Story &amp; Script</div>
+        </div>
+      </div>
+      <h1>The HarborMaster demo, in three acts</h1>
+      <p>A presenter's guide: the customer story, a pre-demo checklist, and a click-by-click script with talk track. Total running time ≈ 25 minutes. The app is at <a class="applink" style="color:#34d0c4" href="./">rsmd365.com/asset-management</a>.</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="story">
+      <h2><span class="num">⚓</span>The story</h2>
+      <p class="lead">Set the scene before you touch the product. This is the narrative the whole demo hangs on.</p>
+      <p><strong>Harbor &amp; Gulf Towing</strong> runs eight tugs out of two ports. Their maintenance world today is a wall of spreadsheets: an operating schedule colored by hand every Friday, engine-hour readings keyed in from paper, and a drydock plan that lives in one person's head. Crews work at sea with no connectivity, so nothing gets recorded until the boat is back alongside — if it gets recorded at all.</p>
+      <p>The cost shows up three ways: <strong>missed services</strong> (an oil change found 87 hours overdue), <strong>regulatory scramble</strong> (USCG drydock deadlines arriving as surprises), and <strong>zero visibility</strong> (leadership can't answer "which boat eats the most labor?" without a week of spreadsheet archaeology).</p>
+      <p>HarborMaster is the front line of a Dynamics 365 F&amp;SCM Enterprise Asset Management solution: an offline-first workspace the crew actually uses at sea, feeding the same data backbone the office plans and reports from. The demo's through-line: <em>data captured once on deck becomes projections, plans, and reports — automatically.</em></p>
+      <h3>Cast of characters</h3>
+      <div class="cast">
+        <div class="card"><b>Ray — Vessel Engineer, M/V Apollo</b><span>Does the morning rounds. Hates double entry. Hero of Act 1.</span></div>
+        <div class="card"><b>The Port Engineer</b><span>Owns fleet maintenance &amp; the drydock plan. Hero of Act 2.</span></div>
+        <div class="card"><b>The Ops Director</b><span>Wants answers, not exports. Hero of Act 3.</span></div>
+      </div>
+    </section>
+
+    <section id="prep">
+      <h2><span class="num">✓</span>Pre-demo checklist <span class="time">10 min, before the meeting</span></h2>
+      <ul class="check">
+        <li>Open the app on the machine and network you'll present from — first load caches it for offline use.</li>
+        <li>Go to <strong>Analytics</strong> and click <strong>Clear canvas</strong> so Act 3 starts from a blank slate.</li>
+        <li>On <strong>Drydock Schedule</strong>, undo any stray cells from practice runs (click a cell until it returns to <code>H</code>).</li>
+        <li>Practice the offline toggle once: click the <strong>Online</strong> pill top-right, make an edit, click it back.</li>
+        <li>Set browser zoom so the Caterpillar Summary table and drydock grid read from the back of the room (~90–100%).</li>
+        <li>Keep the <a class="applink" href="./user-guide.html">user guide</a> URL in your follow-up email template.</li>
+      </ul>
+      <div class="tip"><strong>Recovery move:</strong> if anything ever looks odd mid-demo, a browser refresh is safe — all data is local and your analytics canvas persists.</div>
+    </section>
+
+    <section id="act1">
+      <h2><span class="num">Act 1.</span>Morning rounds with Ray <span class="time">≈ 8 min</span></h2>
+      <p class="lead">Theme: <em>capture at the point of work — even with no signal.</em></p>
+      <table class="script">
+        <tr><th>Do</th><th>Say</th></tr>
+        <tr>
+          <td class="do">Open the app on the <strong>Dashboard</strong>.</td>
+          <td class="say">"It's 6 AM on the Apollo. This is everything Ray needs to know before coffee: his assigned work, what's overdue across the fleet, and the safety notice he has to acknowledge before the next docking."</td>
+        </tr>
+        <tr>
+          <td class="do">Click <strong>Engine Room Daily Maintenance &amp; Inspection</strong> (the In-Progress work order).</td>
+          <td class="say">"His daily routine is a checklist, not a form. Designed for greasy gloves: big targets, low clicks. The full procedure is one tap away as a PDF job aid — no per-step sign-offs slowing him down."</td>
+        </tr>
+        <tr>
+          <td class="do">Pass two or three steps. On the steering-gear step, hit <strong>Flag</strong> and add a short note.</td>
+          <td class="say">"Something looks marginal — he flags it with a note. That flag can become a tracked deficiency without Ray leaving the checklist."</td>
+        </tr>
+        <tr>
+          <td class="do">Click the <strong>Online pill</strong> (top right) to force offline. Complete two more steps. Point at the queued-changes count.</td>
+          <td class="say">"Now the part every mariner asks first: the boat just left the breakwater and there is no signal. Nothing changes. Every entry queues locally…"</td>
+        </tr>
+        <tr>
+          <td class="do">Click the pill again to go back online; watch the queue drain.</td>
+          <td class="say">"…and the moment she's back in range, it all replays to Dynamics 365 automatically. No 'sync app', no IT ticket, no lost clipboard."</td>
+        </tr>
+        <tr>
+          <td class="do">Navigate to <strong>Assets → Apollo</strong>. Show the equipment tree and gauges, then log an engine-hours reading in the component log.</td>
+          <td class="say">"This reading isn't a number in a cell — it's fuel for everything you're about to see. Hour-based PM triggers, due-date projections, drydock planning. Captured once, used everywhere."</td>
+        </tr>
+      </table>
+      <div class="wow"><strong>Wow beat:</strong> the offline toggle. Pause on it. This is the moment spreadsheet-weary maritime audiences lean in.</div>
+    </section>
+
+    <section id="act2">
+      <h2><span class="num">Act 2.</span>The Port Engineer's week <span class="time">≈ 8 min</span></h2>
+      <p class="lead">Theme: <em>captured data becomes foresight — services predicted, deadlines planned.</em></p>
+      <table class="script">
+        <tr><th>Do</th><th>Say</th></tr>
+        <tr>
+          <td class="do">Open <strong>Insight Tables → Engineering: Caterpillar Summary</strong>.</td>
+          <td class="say">"Shore side now. Every Caterpillar main engine in the fleet, on one screen: current hours, last service, next due. Notice Andrew K's port engine — that oil change is <strong>87 hours overdue, in red</strong>. Today that discovery takes a phone call and three spreadsheets."</td>
+        </tr>
+        <tr>
+          <td class="do">Point at the <strong>Export Table</strong> button.</td>
+          <td class="say">"And yes — everything exports, because we know the first question is 'can I get that in Excel?'"</td>
+        </tr>
+        <tr>
+          <td class="do">Open <strong>Engine Usage &amp; PM Projection</strong>. Scroll one chart slowly.</td>
+          <td class="say">"Here's where it gets smart. The solid line is hours the crews actually logged — Ray's reading from this morning is on it. The dashed line is the boat's <em>observed</em> operating tempo projected forward, and where it crosses each dashed threshold is the date that service comes due. The system learns each boat's pace; it doesn't assume one."</td>
+        </tr>
+        <tr>
+          <td class="do">Open <strong>Drydock Schedule</strong>. Point at Andrew K's row: red <strong>Dec 5</strong> DD-expiration, the ringed deadline cell, and the <code>RDD</code> blocks in November.</td>
+          <td class="say">"Regulatory drydock deadlines stop being surprises. Andrew K must be on the blocks before December 5th — the board rings the deadline and the yard window is already penciled in ahead of it."</td>
+        </tr>
+        <tr>
+          <td class="do"><strong>Click an empty cell</strong> on Poseidon a few times to cycle H → DD → RDD, leave it as RDD.</td>
+          <td class="say">"Planning is literally painting. Each click is tentative, shared instantly with the team, and queued to D365 like any other edit. This replaces the Friday-afternoon Excel ritual."</td>
+        </tr>
+        <tr>
+          <td class="do">Click the same cell back to <code>H</code> (cleanup).</td>
+          <td class="say"><em>(Tie-off:)</em> "And because the engine projections live next door, you can drop the 25,000-hour services into the same yard window. One haul-out, both jobs."</td>
+        </tr>
+      </table>
+      <div class="wow"><strong>Wow beat:</strong> the projection chart. "When will it be due?" answered from data the deck crew captured without trying.</div>
+    </section>
+
+    <section id="act3">
+      <h2><span class="num">Act 3.</span>The Ops Director gets answers <span class="time">≈ 6 min</span></h2>
+      <p class="lead">Theme: <em>ask the question, build the answer — live.</em> Start from the blank canvas you prepared.</p>
+      <table class="script">
+        <tr><th>Do</th><th>Say</th></tr>
+        <tr>
+          <td class="do">Open <strong>Analytics</strong> (empty canvas).</td>
+          <td class="say">"Last hat: leadership. Instead of showing you my favorite report, let's build <em>yours</em>. What do you want to know about this fleet?" <em>(Take a real answer if offered; the script below is the fallback.)</em></td>
+        </tr>
+        <tr>
+          <td class="do">Drag a <strong>KPI Card</strong> onto the canvas.</td>
+          <td class="say">"Open work orders, right now, fleet-wide. Live number — it just came from the data we entered in Act 1."</td>
+        </tr>
+        <tr>
+          <td class="do">Drag a <strong>Bar Chart</strong>. Set Dataset → <em>Labor &amp; Cost</em>, Measure → <em>Labor hours</em>, Group by → <em>Asset</em>.</td>
+          <td class="say">"Which boats eat the most labor? Twelve months of hours, by vessel, in three dropdowns."</td>
+        </tr>
+        <tr>
+          <td class="do">Drag a <strong>Trend Line</strong>. Set Filter → <em>Corrective only</em>.</td>
+          <td class="say">"Is unplanned work trending the wrong way? That's the early-warning chart for an aging fleet."</td>
+        </tr>
+        <tr>
+          <td class="do">Drag a <strong>Donut</strong>. Dataset → <em>Deficiencies</em>, Group by → <em>Priority</em>, Filter → <em>Open only</em>.</td>
+          <td class="say">"And the open deficiency mix by severity. Four widgets, ninety seconds, zero IT involvement. In production this same model lights up embedded Power BI — same questions, same data backbone."</td>
+        </tr>
+        <tr>
+          <td class="do">Drag the donut's grip handle to the top of the canvas. Refresh the page.</td>
+          <td class="say">"Arrange it how the morning meeting wants it — it's saved. This <em>is</em> the morning meeting now."</td>
+        </tr>
+      </table>
+      <div class="wow"><strong>Wow beat:</strong> taking a live question from the room and answering it with the field wells. Rehearse two or three combinations so you can improvise safely.</div>
+    </section>
+
+    <section id="close">
+      <h2><span class="num">⚓</span>The close <span class="time">≈ 3 min</span></h2>
+      <p>Bring it back to the through-line: <em>one capture, many payoffs.</em> Ray tapped a checklist and logged a meter reading; that became an overdue-service alert, a projected due date, a drydock plan, and a leadership dashboard — with no one retyping anything.</p>
+      <p>Then land the platform message: what they just saw is the experience layer. The system of record is <strong>Dynamics 365 F&amp;SCM Enterprise Asset Management</strong> — asset hierarchy, maintenance plans, work-order costing, procurement, and financials in one place, with Power BI on top. Natural next step: a scoping workshop to map their fleet, routines, and integrations (oil-analysis labs, telematics) onto that backbone.</p>
+      <h3>Likely questions</h3>
+      <details class="qa"><summary>"Is this Dynamics 365 we're looking at?"</summary><p>This is a demonstration front-end running on a local data store deliberately shaped 1:1 to D365 EAM entities (assets, functional locations, maintenance plans, work orders, requests). In production this UI talks to F&amp;SCM via OData — the sync queue you watched drain is exactly that integration point.</p></details>
+      <details class="qa"><summary>"How does offline really work?"</summary><p>It's a progressive web app: fully cached after first load, all edits land in a local store first and replay to D365 when connectivity returns. You watched it live in Act 1 — and the whole demo itself runs offline.</p></details>
+      <details class="qa"><summary>"We already use Power BI."</summary><p>Perfect — the analytics canvas demonstrates the self-service concept; production reporting is embedded Power BI over the same D365 data, so their existing skills and licenses carry straight over.</p></details>
+      <details class="qa"><summary>"Can it talk to our oil-analysis lab / telematics?"</summary><p>Yes — that's an integration touchpoint in scoping. Lab results (e.g. Lubo) and engine telematics feed the same component history that drives the projections you saw.</p></details>
+    </section>
+
+    <footer>
+      HarborMaster — Marine EAM demo · Backend: Dynamics 365 F&amp;SCM Enterprise Asset Management<br />
+      <a class="applink" href="./">Open the application</a> · <a class="applink" href="./user-guide.html">User guide</a>
+    </footer>
+  </main>
+</body>
+</html>
